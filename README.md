@@ -614,5 +614,5 @@ pyinstaller --onefile --noconsole escalate.py
 - [UACME — UAC bypass techniques collection](https://github.com/hfiref0x/UACME) — ms-settings hijack（Technique #33）
 - [James Forshaw — Windows Token Duplication](https://googleprojectzero.blogspot.com/2019/12/calling-local-windows-rpc-servers-from.html)
 - [Windows Internals — Token Stealing](https://learn.microsoft.com/en-us/windows/win32/secauthz/access-tokens)
-- Win32 API：`DuplicateTokenEx`、`CreateProcessWithTokenW`、`ImpersonateNamedPipeClient`
 - [https://github.com/x0xr00t/Automated-MUlti-UAC-Bypass](https://github.com/x0xr00t/Automated-MUlti-UAC-Bypass)
+- Win32 API：`DuplicateTokenEx`、`CreateProcessWithTokenW`、`ImpersonateNamedPipeClient`
