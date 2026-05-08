@@ -1,4 +1,4 @@
-# USER → SYSTEM 無彈窗靜默提權 — 解題 Writeup
+# USER → SYSTEM 無彈窗靜默提權 — Writeup
 
 ## 背景
 
