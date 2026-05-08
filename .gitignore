@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+*.spec
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Sensitive data output files
+cookies.json
+history.json
+passwords.json
+bookmarks.json
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
