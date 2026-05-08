@@ -229,9 +229,9 @@ python .\escalate.py; Start-Sleep 6; Get-Content C:\Users\Public\esc_result.txt
 
 ---
 
-## 技術難點與解法
+## 技術問題與解法
 
-### 難點 1：工作目錄漂移
+### 問題 1：工作目錄漂移
 
 `ComputerDefaults.exe` 觸發的子程序工作目錄為 `C:\Windows\System32`，
 後續每次 re-launch 同樣不繼承原始目錄。
@@ -244,7 +244,7 @@ cmd = f'"{pythonw}" "{script}" --stage1 "{os.getcwd()}"'
 os.chdir(sys.argv[2])
 ```
 
-### 難點 2：跨 Stage 的 Log 路徑
+### 問題 2：跨 Stage 的 Log 路徑
 
 三個 Stage 的 `%TEMP%` 各不相同：
 - Stage 0 (USER)：`C:\Users\<name>\AppData\Local\Temp`
@@ -261,7 +261,7 @@ for path in [os.environ.get("TEMP","")+"\\esc_log.txt",
     except: continue
 ```
 
-### 難點 3：Stage 2 subprocess 的 local variable 衝突
+### 問題 3：Stage 2 subprocess 的 local variable 衝突
 
 ```python
 # 錯誤：在函式內部 import subprocess 會使整個函式作用域的 subprocess 變為 local
@@ -274,7 +274,7 @@ if not _written:
 import subprocess
 ```
 
-### 難點 4：PyInstaller --noconsole 相容性
+### 問題 4：PyInstaller --noconsole 相容性
 
 `_self_cmd()` 在 frozen / 非 frozen 兩種環境自動切換：
 
@@ -502,9 +502,9 @@ def stage2_payload(cwd: str) -> None:
 
 ---
 
-## 技術難點與解法
+## 技術問題與解法
 
-### 難點 1：工作目錄漂移
+### 問題 1：工作目錄漂移
 
 `ComputerDefaults.exe` 觸發的子程序工作目錄預設為 `C:\Windows\System32`，
 後續每次 re-launch 同樣不繼承原始目錄。
@@ -517,7 +517,7 @@ cmd = f'"{sys.executable}" --stage1 "{os.getcwd()}"'
 os.chdir(sys.argv[2])
 ```
 
-### 難點 2：PyInstaller --noconsole 相容性
+### 問題 2：PyInstaller --noconsole 相容性
 
 打包後 `sys.executable` 是 `.exe`，不是 `python.exe`；
 `--noconsole` 模式下不能使用 `cmd.exe /k` 作載體（會彈出黑色視窗）。
@@ -532,7 +532,7 @@ def _self_cmd(extra_args):
         return f'"{sys.executable}" "{os.path.abspath(sys.argv[0])}" {extra_args}'
 ```
 
-### 難點 3：CreateProcessWithTokenW 需要 Desktop 存取
+### 問題 3：CreateProcessWithTokenW 需要 Desktop 存取
 
 在 Session 0 / 無桌面環境下啟動 Process，需明確指定 Desktop：
 
@@ -542,7 +542,7 @@ si.lpDesktop = "winsta0\\default"
 
 否則 `CreateProcessWithTokenW` 回傳 `ERROR_ACCESS_DENIED`。
 
-### 難點 4：三個 Privilege 缺一不可
+### 問題 4：三個 Privilege 缺一不可
 
 Token 複製與注入需同時啟用三個 Privilege：
 
@@ -615,5 +615,4 @@ pyinstaller --onefile --noconsole escalate.py
 - [James Forshaw — Windows Token Duplication](https://googleprojectzero.blogspot.com/2019/12/calling-local-windows-rpc-servers-from.html)
 - [Windows Internals — Token Stealing](https://learn.microsoft.com/en-us/windows/win32/secauthz/access-tokens)
 - Win32 API：`DuplicateTokenEx`、`CreateProcessWithTokenW`、`ImpersonateNamedPipeClient`
-- [sl0puacb.cs](sl0puacb.cs) — 原始 C# Token 竊取實作
-- [UAC.py](UAC.py) — 原始 Python UAC bypass 實作
+- [https://github.com/x0xr00t/Automated-MUlti-UAC-Bypass](https://github.com/x0xr00t/Automated-MUlti-UAC-Bypass)
